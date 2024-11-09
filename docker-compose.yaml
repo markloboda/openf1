@@ -1,0 +1,19 @@
+services:
+  mongo:
+    container_name: mongo-openf1
+    image: mongo
+    volumes:
+      - mongodata:/data/db
+  openf1:
+    container_name: openf1
+    build: ./
+    restart: always
+    ports:
+      - '8000:8000'
+    links:
+      - mongo
+    environment:
+      - MONGO_CONNECTION_STRING=mongodb://mongo:27017
+
+volumes:
+  mongodata:
